@@ -19,3 +19,11 @@ const listener = app.listen(process.env.PORT || 3000, () => {
 app.get("/api/hello", (req, res) => {
   res.json({ greeating: "Hello api" });
 });
+
+app.get("/api/:date?", (req, res) => {
+  const theDate = req.params.date;
+
+  const date = isNaN(theDate) ? new Date(theDate) : new Date(parseInt(theDate));
+
+  res.json({ unix: date.getTime(), utc: date.toUTCString() });
+});
