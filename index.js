@@ -22,25 +22,26 @@ app.get("/api/hello", (req, res) => {
 
 app.get("/api/:date?", (req, res) => {
   const theDate = req.params.date;
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  let date;
+
   console.log("Valor recibido:", theDate);
 
   if (!theDate) {
     return res.json({ unix: new Date() });
   }
-  let date;
+
   if (!isNaN(Number(theDate)) && theDate.length >= 10) {
-    console.log("Es un número valido:", Number(theDate));
+    // console.log("Es un número valido:", Number(theDate));
     const dateNumber = new Date(Number(theDate));
-    console.log("Fecha generada:", dateNumber);
+    // console.log("Fecha generada:", dateNumber);
     const numberToDate = new Date(dateNumber);
-    console.log("No tiene que ser fecha:", numberToDate.getTime());
+    // console.log("No tiene que ser fecha:", numberToDate.getTime());
 
     return res.json({
       unix: dateNumber.getTime(),
       utc: dateNumber.toUTCString(),
     });
-  } else {
-    const fechaTexto = new Date(theDate);
-    console.log("Fecha generada desde texto:", fechaTexto);
+  } else if (dateRegex.test(theDate)) {
   }
 });
