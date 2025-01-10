@@ -23,7 +23,7 @@ app.get("/api/hello", (req, res) => {
 app.get("/api/:date?", (req, res) => {
   const theDate = req.params.date;
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  let date;
+  const newDateRegex = theDate.replace(/date=/, "");
 
   console.log("Valor recibido:", theDate);
 
@@ -42,6 +42,13 @@ app.get("/api/:date?", (req, res) => {
       unix: dateNumber.getTime(),
       utc: dateNumber.toUTCString(),
     });
-  } else if (dateRegex.test(theDate)) {
+  } else if (dateRegex.test(theDate) || dateRegex.test(newDateRegex)) {
+    const utcDate = new Date(theDate).toUTCString();
+    return res.json({
+      unix: new Date(theDate).getTime(),
+      utc: utcDate,
+    });
+  } else {
+    res.json({ error: "Invalid Date" });
   }
 });
