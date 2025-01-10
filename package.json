@@ -1,0 +1,25 @@
+{
+  "name": "api-timestamp-microservice",
+  "version": "1.0.0",
+  "description": "FreeCodeCamp Exam Number 1 on Back End Development and APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RCYGM/api-timestamp-microservice.git"
+  },
+  "keywords": [
+    "api",
+    "timestamp",
+    "microservice",
+    "freecodecamp"
+  ],
+  "author": "Juergen Mueller @emprende_legendario",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RCYGM/api-timestamp-microservice/issues"
+  },
+  "homepage": "https://github.com/RCYGM/api-timestamp-microservice#readme"
+}
