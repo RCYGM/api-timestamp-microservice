@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/RCYGM/api-timestamp-microservice/issues"
   },
-  "homepage": "https://github.com/RCYGM/api-timestamp-microservice#readme"
+  "homepage": "https://github.com/RCYGM/api-timestamp-microservice#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
 }
