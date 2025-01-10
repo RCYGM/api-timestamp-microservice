@@ -22,8 +22,27 @@ app.get("/api/hello", (req, res) => {
 
 app.get("/api/:date?", (req, res) => {
   const theDate = req.params.date;
+  console.log(theDate);
+  console.log(Number(theDate));
 
-  const date = isNaN(theDate) ? new Date(theDate) : new Date(parseInt(theDate));
+  let date;
+  if (!theDate) {
+    date = new Date();
+    return res.json({ unix: date.getTime() });
+  } else if (!isNaN(theDate)) {
+    console.log(!isNaN(theDate));
+    console.log(Number(date));
 
-  res.json({ unix: date.getTime(), utc: date.toUTCString() });
+    date = new Date(theDate);
+  } else {
+    date = new Date(parseInt(theDate));
+    console.log(date);
+  }
+  console.log(isNaN(date.getTime()));
+
+  if (isNaN(date.getTime())) {
+    res.json({ error: "Invalid Date" });
+  } else {
+    if (isNaN()) res.json({ unix: date.getTime(), utc: date.toUTCString() });
+  }
 });
