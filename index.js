@@ -22,14 +22,16 @@ app.get("/api/hello", (req, res) => {
 
 app.get("/api/:date?", (req, res) => {
   const theDate = req.params.date;
+  if (!theDate) {
+    return res.json({
+      unix: new Date().getTime(),
+      utc: new Date().toUTCString(),
+    });
+  }
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   const newDateRegex = theDate.replace(/date=/, "");
 
   console.log("Valor recibido:", theDate);
-
-  if (!theDate) {
-    return res.json({ unix: new Date() });
-  }
 
   if (!isNaN(Number(theDate)) && theDate.length >= 10) {
     // console.log("Es un número valido:", Number(theDate));
