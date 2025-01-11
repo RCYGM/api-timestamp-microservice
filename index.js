@@ -22,35 +22,25 @@ app.get("/api/hello", (req, res) => {
 
 app.get("/api/:date?", (req, res) => {
   const theDate = req.params.date;
+  let date;
+  // Si no hay parámetro, devuelve la fecha actual
   if (!theDate) {
-    return res.json({
-      unix: new Date().getTime(),
-      utc: new Date().toUTCString(),
-    });
-  }
-  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  const newDateRegex = theDate.replace(/date=/, "");
-
-  console.log("Valor recibido:", theDate);
-
-  if (!isNaN(Number(theDate)) && theDate.length >= 10) {
-    // console.log("Es un número valido:", Number(theDate));
-    const dateNumber = new Date(Number(theDate));
-    // console.log("Fecha generada:", dateNumber);
-    const numberToDate = new Date(dateNumber);
-    // console.log("No tiene que ser fecha:", numberToDate.getTime());
-
-    return res.json({
-      unix: dateNumber.getTime(),
-      utc: dateNumber.toUTCString(),
-    });
-  } else if (dateRegex.test(theDate) || dateRegex.test(newDateRegex)) {
-    const utcDate = new Date(theDate).toUTCString();
-    return res.json({
-      unix: new Date(theDate).getTime(),
-      utc: utcDate,
-    });
+    date = new Date();
+  } else if (!isNaN(theDate)) {
+    // Si es un número (timestamp), conviértelo a fecha
+    date = new Date(Number(theDate));
   } else {
+    // Si es una fecha en texto, intenta convertirla
+    date = new Date(theDate);
+  }
+
+  // Validar si la fecha es inválida
+  if (date.toString() === "Invalid Date") {
     res.json({ error: "Invalid Date" });
   }
+
+  res.json({
+    unix: date.getTime(),
+    utc: date.toString(),
+  });
 });
