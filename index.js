@@ -12,10 +12,6 @@ app.use(cors({ optionsSuccessStatus: 200 }));
 
 //app.use(express.static("public"));
 
-const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log("Your app is listening on port " + listener.address().port);
-});
-
 app.get("/api/hello", (req, res) => {
   res.json({ greeating: "Hello api" });
 });
@@ -43,4 +39,8 @@ app.get("/api/:date?", (req, res) => {
     unix: date.getTime(),
     utc: date.toUTCString(),
   });
+});
+
+const listener = app.listen(process.env.PORT || 3000, () => {
+  console.log("Your app is listening on port " + listener.address().port);
 });
